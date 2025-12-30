@@ -240,6 +240,18 @@ with gr.Blocks(title="TripoSR - Single & Batch") as interface:
     **New Feature:** You can now process multiple images in batches!
     """
     )
+    import torch
+    
+    def get_gpu_info():
+        if torch.cuda.is_available():
+            gpu_name = torch.cuda.get_device_name(0)
+            vram = torch.cuda.get_device_properties(0).total_memory / 1024**3
+            return f" **GPU Aktif:** {gpu_name} ({vram:.1f} GB VRAM)"
+        else:
+            return " **CPU Modu:** Sistem sadece işlemci kullanıyor (Yavaş olabilir)"
+
+    with gr.Row():
+        gr.Markdown(get_gpu_info())
     
     with gr.Tabs():
         # =================================================================
